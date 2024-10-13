@@ -15,37 +15,38 @@ function App() {
       const apiResponse = await fetch('https://dummyjson.com/todos');
       const result = await apiResponse.json();
 
-      console.log(result);
+      
       if(result?.todos && result?.todos?.length > 0) {
         setTodoList(result?.todos);
-        setLoading(false)
-        setErrorMsg('Some error occured');
+        setLoading(false);
+        setErrorMsg("");
       } else {
         setTodoList([]);
-        setLoading(false)
+        setLoading(false);
+        setErrorMsg("");
       }
       
     } catch(e) {
       console.log(e);
-      setErrorMsg('Some error occured')
+      setErrorMsg('Some error occured');
     }
     
   }
 
   useEffect(()=>{
     fetchListOfTodos()
-  }, [])
+  }, []);
 
   return (
     <div className={classes.mainWrapper}>
       <h1 className={classes.headerTitle}>A simple Todo App </h1>
-      <div>
+      <div className={classes.todoListWrapper} >
         {todoList && todoList.length > 0
-         ?todoList.map((todoItem) => <TodoItem todo={todoItem} />) 
+         ? todoList.map((todoItem) => <TodoItem todo={todoItem} />) 
           : null}
       </div>
     </div>
   );
 }
 
-export default App
+export default App;
